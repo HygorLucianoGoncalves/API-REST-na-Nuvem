@@ -1,4 +1,4 @@
-package com.example.apirestnanuvem.domain.impl;
+package com.example.apirestnanuvem.domain.service.impl;
 
 import com.example.apirestnanuvem.domain.model.User;
 import com.example.apirestnanuvem.domain.repository.UserRepository;
@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User userToCreate) {
-        if (userToCreate.getId() != null && userRepository.existsById(userToCreate.getId())){
-            throw new IllegalArgumentException("o id ja existes ");
+        if (userRepository.existsByAccountNumber(userToCreate.getAccount().getNumber())) {
+            throw new IllegalArgumentException("This Account number already exists.");
         }
         return userRepository.save(userToCreate);
     }
